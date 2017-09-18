@@ -24,8 +24,26 @@ class ArticleCommentController extends BaseController
      * @return json
      */
     public function articleLiked($article_id){
-        $this->articlecommentService->liked($article_id);
+        $res = $this->articlecommentService->liked($article_id);
+        return $this->_outdata($res);
     }
+
+    /**
+     * 文章评论
+     *
+     * @access public
+     * @param mixed post发送过来的数据
+     * @since 2017/9/18 SF
+     * @return json
+     */
+    public function Comment(Request $request){
+        if($request->has('article_id') && $request->has('comment')){
+            $res = $this->articlecommentService->comment($request->input());
+            return $this->_outdata($res->instanceId);
+        }
+    }
+
+
 
 
 

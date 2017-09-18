@@ -33,8 +33,8 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
 //    });
 
     require_once __DIR__ . '/member.php'; //会员
-    require_once __DIR__ . '/article.php'; //会员
-
+    require_once __DIR__ . '/article.php'; //文章
+    require_once __DIR__ . '/articlecomment.php'; //文章内容
 
 
 });

@@ -27,7 +27,21 @@ class ArticleCommentRepository extends BaseRepository
 
     // 文章点赞
     public function isLiked($data){
-        var_dump($data);die;
+        // 加载类（降低耦合度）
+        $model = $this->baseModel->newInstance();
+        if($data){
+            $model->user_id = $data->user_id;
+            $model->article_id = $data->article_id;
+            $model->type = $data->type;
+            $model->star = $data->star;
+            $model->save();
+            return $model->id;
+        }
+    }
+
+    // 文章评论检测是否存在
+    public function getByCommentId($id){
+        return $this->baseModel->find($id);
     }
 
 

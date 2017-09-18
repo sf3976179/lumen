@@ -12,7 +12,7 @@ class ArticleComment extends BaseModel
     protected $table = 'article_comment';
     //可被批量赋值的字段
     protected $fillable = [
-        'user_id','ac_id','main_title','subtitle','ac_tag','image_name','movie_name','ac_display','content','add_time','update_time'
+        'user_id','parent_id','article_id','comment','type','star'
     ];
 
     // 取消自动维护

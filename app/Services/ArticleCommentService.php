@@ -36,15 +36,34 @@ class ArticleCommentService extends BaseService
             $this->article_id = $article_id;
             $this->type = '1';
             $this->star = '1';
-//            $article_comment = array(
-//                'user_id'=>$member_id,
-//                'article_id'=>$article_id,
-//                'type'=>'1',
-//                'star'=>'1'
-//            );
-
-            $this->articlecommentRepository->isLiked($this);
+            return $this->articlecommentRepository->isLiked($this);
         }
+    }
+
+    /**
+     * 文章评论
+     *
+     * @access public
+     * @param mixed 接收C发送的数据
+     * @need 查询parent_id是否是评论文章
+     * @since 2017/9/18 SF
+     * @return json
+     */
+    public function comment($input){
+        if($input['parent_id']){
+            // 检查是否存在
+            $res = $this->articlecommentRepository->getByCommentId($input['parent_id']);
+            if(!isset($res)){return false;}
+        }
+        $member_id = Cache::get('member_id');
+        $data = array(
+            'user_id' => $member_id,
+            'parent_id' => isset($input['parent_id']) ? $input['parent_id'] : '0',
+            'article_id' => $input['article_id'],
+            'comment' => $input['comment'],
+            'type' => '2'
+        );
+        return $this->articlecommentRepository->create($data);
     }
 
 
