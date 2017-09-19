@@ -46,6 +46,11 @@ class ArticleController extends BaseController
          return $this->_outdata($result);
      }
 
+    public function articleList1($id){
+        $result = $this->articleService->articleList($id);
+        return $this->_outdata($result);
+    }
+
     /**
      * 图片上传
      *
@@ -104,9 +109,6 @@ class ArticleController extends BaseController
      * @since 2017/9/15 SF
      * @return json
      */
-    public function articleComment(){
-
-    }
 
 
 

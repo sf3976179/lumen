@@ -102,4 +102,8 @@ class MemberController extends BaseController
       return $res->original;
   }
 
+  public function listInfo($id){
+    var_dump($id);die;
+  }
+
 }
