@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Facades\Cache;   //引入默认redis缓存
 use App\Repositories\MemberRepository;
 use App\Repositories\UserRepository;
 /**
@@ -34,7 +35,8 @@ class MemberService extends BaseService
           'user_name' => $input['user_name'],
           'email' => $input['email'],
           'password' => $password,
-          'phone' => $input['phone']
+          'phone' => $input['phone'],
+          'member_integral' => '20'
       ];
       $res = $this->memberRepository->create($new_user);
       if($res){
@@ -100,6 +102,39 @@ class MemberService extends BaseService
              return $this->memberRepository->getByCondition($member);
          }
      }
+
+    /**
+     * 会员签到
+     *
+     * @access public
+     * @since 2017/9/20 SF
+     * @return array
+     */
+    public function memberSign($input){
+        $month = date('m',$input['date']); //月
+        $day = date('d',$input['date']); //日
+        $res = $this->memberRepository->find_reward(array('m'=>$month,'d'=>$day)); //获取当前奖励设置记录
+        $member_id = Cache::get('member_id');
+        // 签到日志数据
+        $res2 = array(
+            'sign_reward_id' => $res['id'], //签到奖励ID
+            'member_id' => $member_id,
+            'sign_date' => date("Y-m-d H:i:s",$input['date']) //签到日期
+        );
+        if($res){
+            //查询当前是否为连续签到
+            $res1 = $this->memberRepository->find_reward(array('m'=>$month,'d'=>$day-1));
+            if($res1 && $day !='1'){
+                //查询当前会员签到天数+1，记录到奖励日志
+                $res2['sign'] = '1';
+                $res2['sign_comment'] = '连续签到+1';
+            }else{
+                $res2['sign_comment'] = '当日签到';
+            }
+            return $this->memberRepository->findMemberSign($res2,$res);
+        }
+
+    }
 
 
 

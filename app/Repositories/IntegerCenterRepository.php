@@ -1,7 +1,7 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Rhythm
+ * Created by SF.
+ * User: SF
  * Date: 2017/9/19
  * Time: 18:08
  */
@@ -35,6 +35,11 @@ class IntegerCenterRepository extends BaseRepository
             $this->verifyClass($res['parent_id']);
         }
         return true;
+    }
+
+    // 积分商品分类筛选
+    public function integerGoodsList(int $list_id){
+        return $this->baseModel->where('parent_id','=',$list_id)->get()->toArray();
     }
 
 

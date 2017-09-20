@@ -15,7 +15,7 @@ class MemberController extends BaseController
   }
 
   /**
-  * 会员注册
+  * 会员注册（注册成功送20积分）
   *
   * @access public
   * @param mixed $request post发送过来的用户数据
@@ -38,7 +38,7 @@ class MemberController extends BaseController
   }
 
   /**
-  * 会员登录
+  * 会员登录（每天登录送1积分）
   *
   * @access public
   * @param mixed $request post发送过来的用户数据
@@ -102,8 +102,24 @@ class MemberController extends BaseController
       return $res->original;
   }
 
-  public function listInfo($id){
-    var_dump($id);die;
+  /**
+  * 会员签到
+  * @access public
+  * @param sign：签到标注（1） date：日期（int）例：1505893169
+  * @since 2017/9/20 SF
+  * @return json
+  */
+  public function memberSign(Request $request){
+      $input = $request->input();
+      if($input['sign'] == '1'){
+          $result = $this->memberService->memberSign($input);
+          return $this->_outdata($result);
+      }else{
+          return $this->_outdata(null,'请传递正确的数据');
+      }
   }
+
+
+
 
 }

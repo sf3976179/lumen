@@ -1,7 +1,7 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Rhythm
+ * Created by SF.
+ * User: SF
  * Date: 2017/9/18
  * Time: 17:38
  */
@@ -25,7 +25,7 @@ class IntegerCenterService extends BaseService
     /**
      * 积分商品分类增加
      * @access public
-     * @param mixed $request post发送过来的用户数据
+     * @param mixed C发送过来的用户数据
      * @since 2017/9/19 SF
      * @return json
      */
@@ -44,16 +44,33 @@ class IntegerCenterService extends BaseService
             case '3':
                 $this->integercenterRepository->verifyClass($data['parent_id']);
             default:
-                // 插入数据
-
         }
-
-
-
-
-
-
+        return $this->integercenterRepository->create($data);
     }
+
+    /**
+     * 积分商品分类列表
+     * @access public
+     * @param mixed C发送过来的用户数据
+     * @need function setCurrentScope() on boolean回头解决
+     * @since 2017/9/20 SF
+     * @return json
+     */
+    public function getGoodsList(int &$id){
+        if($id){
+            $res = array();
+            $res[$id] = $this->integercenterRepository->integerGoodsList($id);
+            $number=$res[$id]['0'];
+            while($number['level'] != '3'){
+                $res[$number['id']] = $this->integercenterRepository->integerGoodsList($number['id']);
+                $number = $res[$number['id']]['0'];
+                $number++;
+            }
+            return $res;
+        }
+    } 
+
+
 
 
 
