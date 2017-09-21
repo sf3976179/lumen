@@ -106,6 +106,7 @@ class MemberController extends BaseController
   * 会员签到
   * @access public
   * @param sign：签到标注（1） date：日期（int）例：1505893169
+  * @need 会员签到积分没加
   * @since 2017/9/20 SF
   * @return json
   */

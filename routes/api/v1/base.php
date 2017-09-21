@@ -36,5 +36,6 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api\V1'], function ($a
     require_once __DIR__ . '/article.php'; //文章
     require_once __DIR__ . '/articlecomment.php'; //文章内容
     require_once __DIR__ . '/integercenter.php'; //积分中心
+    require_once __DIR__ . '/integergoods.php'; //积分商品
 
 });

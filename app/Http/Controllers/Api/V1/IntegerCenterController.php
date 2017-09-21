@@ -45,6 +45,19 @@ class IntegerCenterController extends BaseController
         }
     }
 
+    /**
+     * 积分商品增加
+     * @access public
+     * @param mixed $request post发送过来的用户数据
+     * @since 2017/9/21 SF
+     * @return json
+     */
+    public function integerGoodsAdd(){
+
+    }
+
+
+
 
 
 }
