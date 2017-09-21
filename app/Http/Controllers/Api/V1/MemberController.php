@@ -113,9 +113,13 @@ class MemberController extends BaseController
       $input = $request->input();
       if($input['sign'] == '1'){
           $result = $this->memberService->memberSign($input);
-          return $this->_outdata($result);
+          if($result){
+              return $this->_outdata($result);
+          }else{
+              return $this->_out(array('code'=>'400','msg'=>'已签到，请勿重复提交'));
+          }
       }else{
-          return $this->_outdata(null,'请传递正确的数据');
+          return $this->_out(array('code'=>'400','msg'=>'请传递正确的数据'));
       }
   }
 

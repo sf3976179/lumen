@@ -108,6 +108,7 @@ class MemberService extends BaseService
      *
      * @access public
      * @since 2017/9/20 SF
+     * @need 目前当前签到奖励必须设置，每天只能签到一次
      * @return array
      */
     public function memberSign($input){
@@ -126,9 +127,10 @@ class MemberService extends BaseService
             $res1 = $this->memberRepository->find_reward(array('m'=>$month,'d'=>$day-1));
             if($res1 && $day !='1'){
                 //查询当前会员签到天数+1，记录到奖励日志
-                $res2['sign'] = '1';
+                $res2['sign'] = '2';
                 $res2['sign_comment'] = '连续签到+1';
             }else{
+                $res2['sign'] = '1';
                 $res2['sign_comment'] = '当日签到';
             }
             return $this->memberRepository->findMemberSign($res2,$res);
