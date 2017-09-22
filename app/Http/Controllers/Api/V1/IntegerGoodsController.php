@@ -26,7 +26,7 @@ class IntegerGoodsController extends BaseController
         if($request->input()){
             $input = $request->input();
             $res = $this->integergoodsService->goodsAdd($input);
-            return $this->_outdata($res->instanceId);
+            return $this->_outdata($res);
         }else{
             return $this->_outdata(null,'请输入正确信息');
         }
@@ -37,6 +37,7 @@ class IntegerGoodsController extends BaseController
      *
      * @access public
      * @param mixed $request post发送过来的用户数据
+     * @need 回滚补充 放在service里
      * @since 2017/9/21 SF
      * @return json
      */

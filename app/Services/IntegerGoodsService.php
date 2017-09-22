@@ -25,11 +25,11 @@ class IntegerGoodsService extends BaseService
      * @return string
      */
     public function goodsAdd(array $input){
-        return $this->baseRepository->create($input);
+        return $this->baseRepository->createGoods($input);
     }
 
     /**
-     * 积分商品分类增加
+     * 积分商品规格增加
      *
      * @access public
      * @param mixed $input 接收C发送的数据
@@ -37,7 +37,7 @@ class IntegerGoodsService extends BaseService
      * @return string
      */
     public function specAdd(array $data){
-
+        
     }
 
 
